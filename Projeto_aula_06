@@ -1,0 +1,104 @@
+lista = []
+
+# Função para criar uma nova tarefa
+def nova_tarefa(nome, descricao, prioridade, categoria):
+    return {
+        'nome': nome,
+        'descricao': descricao,
+        'prioridade': prioridade,
+        'categoria': categoria,
+        'concluida': False  # Marca que a tarefa ainda não foi concluída
+    }
+
+# Função para listar todas as tarefas
+def listar_tarefas():
+    if not lista:
+        print("\nNão há tarefas na lista.")
+    else:
+        for tarefa in lista:
+            status = "Concluída" if tarefa['concluida'] else "Pendente"
+            print(f"\nNome da tarefa: {tarefa['nome']}")
+            print(f"Descrição: {tarefa['descricao']}")
+            print(f"Prioridade: {tarefa['prioridade']}")
+            print(f"Categoria: {tarefa['categoria']}")
+            print(f"Status: {status}")
+
+# Função para marcar tarefa como concluída
+def concluir_tarefa():
+    nome_tarefa = input("\nDigite o nome da tarefa a ser concluída: ")
+    for tarefa in lista:
+        if tarefa['nome'].lower() == nome_tarefa.lower():
+            tarefa['concluida'] = True
+            print(f"Tarefa '{nome_tarefa}' marcada como concluída.")
+            return
+    print("Tarefa não encontrada.")
+
+# Função para listar tarefas por prioridade
+def listar_por_prioridade():
+    prioridade = input("\nDigite a prioridade que deseja filtrar: ")
+    encontrou = False
+    for tarefa in lista:
+        if tarefa['prioridade'].lower() == prioridade.lower():
+            encontrou = True
+            print(f"\nNome da tarefa: {tarefa['nome']}")
+            print(f"Descrição: {tarefa['descricao']}")
+            print(f"Categoria: {tarefa['categoria']}")
+            print(f"Status: {'Concluída' if tarefa['concluida'] else 'Pendente'}")
+    if not encontrou:
+        print(f"\nNenhuma tarefa com a prioridade '{prioridade}' encontrada.")
+
+# Função para listar tarefas por categoria
+def listar_por_categoria():
+    categoria = input("\nDigite a categoria que deseja filtrar: ")
+    encontrou = False
+    for tarefa in lista:
+        if tarefa['categoria'].lower() == categoria.lower():
+            encontrou = True
+            print(f"\nNome da tarefa: {tarefa['nome']}")
+            print(f"Descrição: {tarefa['descricao']}")
+            print(f"Prioridade: {tarefa['prioridade']}")
+            print(f"Status: {'Concluída' if tarefa['concluida'] else 'Pendente'}")
+    if not encontrou:
+        print(f"\nNenhuma tarefa com a categoria '{categoria}' encontrada.")
+
+# Menu de comandos
+print("\nDINGO BEL DO DESESPERO\n")
+
+while True:
+    print("\nO que você gostaria de fazer?")
+    print("[1] Adicionar nova tarefa")
+    print("[2] Listar todas as tarefas")
+    print("[3] Marcar tarefa como concluída")
+    print("[4] Listar tarefas por prioridade")
+    print("[5] Listar tarefas por categoria")
+    print("[6] Sair")
+
+    usuario = input("\nDigite sua opção: ")
+
+    if usuario == '1':
+        nome_da_tarefa = input("Digite o nome da tarefa: ")
+        descricao = input("Digite a descrição da tarefa: ")
+        prioridade = input("Digite a prioridade da tarefa: ")
+        categoria = input("Digite a categoria: ")
+
+        # Adiciona a nova tarefa à lista
+        lista.append(nova_tarefa(nome_da_tarefa, descricao, prioridade, categoria))
+
+    elif usuario == '2':
+        listar_tarefas()
+
+    elif usuario == '3':
+        concluir_tarefa()
+
+    elif usuario == '4':
+        listar_por_prioridade()
+
+    elif usuario == '5':
+        listar_por_categoria()
+
+    elif usuario == '6':
+        print("Saindo do programa.")
+        break
+
+    else:
+        print("Opção inválida, tente novamente.")
